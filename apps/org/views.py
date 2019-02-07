@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.views.generic import View
 from django.db.models import Q
 from django.http import JsonResponse
@@ -19,7 +19,7 @@ def has_faved(request, fav_type=1, fav_id=0):
     是否已收藏
     :param request:
     :param fav_type: 1 课程；2 机构；3 教师
-    :param fav_id:
+    :param fav_id: 收藏编号
     :return:
     """
     ret = False
@@ -81,12 +81,12 @@ class OrgHomeView(View):
     @staticmethod
     def get(request, org_id):
         current_page = 'home'
-        course_org = Org.objects.all().get(id=int(org_id))
+        course_org = get_object_or_404(Org, pk=org_id)
         course_org.click_nums += 1
         course_org.save()
         all_courses = Course.objects.all().filter(org=course_org)[:3]
         all_teachers = Teacher.objects.all().filter(org=course_org)[:3]
-        has_fav = has_faved(request, 2, int(org_id))  # 机构是否收藏
+        has_fav = has_faved(request, 2, org_id)  # 机构是否收藏
         return render(request, 'org/org-detail-homepage.html', locals())
 
 
@@ -120,8 +120,8 @@ class CourseListView(View):
     @staticmethod
     def get(request, org_id):
         current_page = 'course'
-        course_org = Org.objects.all().get(id=int(org_id))
-        all_courses = Course.objects.all().filter(org_id=int(org_id))
+        course_org = get_object_or_404(Org, pk=org_id)
+        all_courses = get_list_or_404(Course, org=course_org)
         # 分页
         try:
             page = request.GET.get('page', 1)
@@ -129,6 +129,7 @@ class CourseListView(View):
             page = 1
         p = Paginator(all_courses, 5, request=request)
         all_courses = p.page(page)
+        has_fav = has_faved(request, 2, org_id)
         return render(request, 'org/org-list-course.html', locals())
 
 
@@ -139,8 +140,8 @@ class OrgDescView(View):
     @staticmethod
     def get(request, org_id):
         current_page = 'desc'
-        course_org = Org.objects.get(id=int(org_id))
-        has_fav = has_faved(request, 2, int(org_id))
+        course_org = get_object_or_404(Org, pk=org_id)
+        has_fav = has_faved(request, 2, org_id)
         return render(request, 'org/org-detail-desc.html', locals())
 
 
@@ -150,7 +151,8 @@ class TeacherListView(View):
     """
     @staticmethod
     def get(request):
-        all_teachers = Teacher.objects.all()
+        # all_teachers = Teacher.objects.all()
+        all_teachers = get_list_or_404(Teacher)
         sorted_teacher = all_teachers.order_by('-click_nums')[:5]
         # 关键字
         keywords = request.GET.get('keywords', '')
@@ -174,7 +176,7 @@ class TeacherView(View):
     @staticmethod
     def get(request, org_id):
         current_page = 'teacher'
-        course_org = Org.objects.get(id=int(org_id))
+        course_org = get_object_or_404(Org, pk=org_id)
         all_teachers = course_org.teacher_set.all().order_by('-click_nums')
         has_fav = has_faved(request, 2, int(org_id))  # 机构是否收藏
         return render(request, 'org/org-list-teachers.html', locals())
@@ -186,10 +188,10 @@ class TeacherDetailView(View):
     """
     @staticmethod
     def get(request, teacher_id):
-        teacher = Teacher.objects.get(id=int(teacher_id))
-        has_teacher_faved = has_faved(request, 3, int(teacher_id))  # 教师是否收藏
-        has_org_faved = has_faved(request, 2, int(teacher.org_id))  # 机构是否收藏
-        all_courses = Course.objects.all().filter(teacher=teacher)
+        teacher = get_object_or_404(Teacher, pk=teacher_id)
+        has_teacher_faved = has_faved(request, 3, teacher_id)  # 教师是否收藏
+        has_org_faved = has_faved(request, 2, teacher.org_id)  # 机构是否收藏
+        all_courses = get_list_or_404(Course, teacher=teacher)
         sorted_teacher = Teacher.objects.all().order_by('-click_nums')[:5]
         teacher.click_nums += 1
         teacher.save()

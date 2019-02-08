@@ -32,7 +32,7 @@
             {% for course in all_courses.object_list  %}
               <div class="box">
                 <a href="{% url 'course:course_detail' course.id %}">
-                  <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.cover }}"/>
+                  <img width="280" height="350" class="scrollLoading" src="{{ course.cover.url }}"/>
                 </a>
                 <div class="des">
                   <a href="{% url 'course:course_detail' course.id %}">
@@ -86,7 +86,7 @@
           <dl>
             <dt>
               <a target="_blank" href="{% url 'course:course_detail' hot_course.id %}">
-                <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ hot_course.cover }}"/>
+                <img width="240" height="220" class="scrollLoading" src="{{ hot_course.cover.url }}"/>
               </a>
             </dt>
             <dd>

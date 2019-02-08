@@ -92,7 +92,7 @@
                 {% for course_resource in all_resources %}
                 <li>
                   <span><i class="aui-iconfont aui-icon-file"></i>{{ course_resource.name }}</span>
-                  <a href="{{ MEDIA_URL }}{{ course_resource.download }}" class="downcode" target="_blank">下载</a>
+                  <a href="{{ course_resource.download.url }}" class="downcode" target="_blank">下载</a>
                 </li>
                 {% endfor %}
               </ul>
@@ -101,7 +101,7 @@
               <h4>讲师提示</h4>
               <div class="teacher-info">
                 <a href="{% url 'teacher_detail' course.teacher.id %}" target="_blank">
-                  <img src='{{ MEDIA_URL }}{{ course.teacher.avatar }}' width='80' height='80'/>
+                  <img src='{{ course.teacher.avatar.url }}' width='80' height='80'/>
                 </a>
                 <span class="tit">
                   <a href="{% url 'teacher_detail' course.teacher.id %}" target="_blank">{{ course.teacher.name }}</a>
@@ -132,7 +132,7 @@
                     {% for relate_course in relate_courses %}
                     <li class="curr">
                       <a href="{% url 'course:course_detail' relate_course.id %}" target="_blank">
-                        <img src="{{ MEDIA_URL }}{{ relate_course.cover }}"  alt="{{ relate_course.name }}" />
+                        <img src="{{ relate_course.cover.url }}"  alt="{{ relate_course.name }}" />
                         <span class="name autowrap">{{ relate_course.name }}</span>
                       </a>
                     </li>

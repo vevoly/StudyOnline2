@@ -36,7 +36,7 @@
                         {% for fav_course in course_list %}
                         <div class="module1_5 box">
                             <a href="{% url 'course:course_detail' fav_course.id %}">
-                                <img width="214" height="190" src="{{ MEDIA_URL }}{{ fav_course.cover }}"/>
+                                <img width="214" height="190" src="{{ fav_course.cover.url }}"/>
                             </a>
                             <div class="des">
                                 <a href="{% url 'course:course_detail' fav_course.id %}"><h2>{{ fav_course.name }}</h2></a>

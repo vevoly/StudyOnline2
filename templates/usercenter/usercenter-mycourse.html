@@ -27,7 +27,7 @@
                     {% for user_course in user_course_list %}
                     <div class="module1_5 box">
                             <a href="{% url 'course:course_detail' user_course.course.id %}">
-                                <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ user_course.course.cover }}"/>
+                                <img width="214" height="190" class="scrollLoading" src="{{ user_course.course.cover.url }}"/>
                             </a>
                             <div class="des">
                                 <a href="course-detail.html"><h2>{{ user_course.course.name }}</h2></a>

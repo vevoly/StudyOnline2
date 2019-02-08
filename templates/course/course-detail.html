@@ -22,7 +22,7 @@
         <div class="left">
           <div class="picbox">
             <div class="tb-booth tb-pic">
-              <img width="440" height="445" src="{{ MEDIA_URL }}{{ course.cover }}" class="jqzoom"/>
+              <img width="440" height="445" src="{{ course.cover.url }}" class="jqzoom"/>
             </div>
           </div>
           <div class="des">
@@ -38,7 +38,7 @@
               <li><span class="pram word3">课程类别：</span><span title="">{{ course.category }}</span></li>
               <li class="piclist"><span class="pram word4">学习用户：</span>
                 {% for user_course in course.get_learn_users %}
-                  <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }}{{ user_course.user.avatar}}"/></span>
+                  <span class="pic"><img width="40" height="40" src="{{ user_course.user.avatar.url}}"/></span>
                 {% endfor %}
 
               </li>
@@ -63,7 +63,7 @@
           </div>
           <div class="pic">
             <a href="/company/14/">
-              <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.org.logo }}"/>
+              <img width="150" height="80" src="{{ course.org.logo.url }}"/>
             </a>
           </div>
           <a href="/company/14/">
@@ -126,7 +126,7 @@
             <dl>
             <dt>
               <a target="_blank" href="{% url 'course:course_detail' relate_course.id %}">
-                <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ relate_course.cover }}"/>
+                <img width="240" height="220" class="scrollLoading" src="{{ relate_course.cover.url }}"/>
               </a>
             </dt>
             <dd>

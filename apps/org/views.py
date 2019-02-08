@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
-from django.views.generic import View
+from django.views.generic import View, ListView, DetailView
 from django.db.models import Q
 from django.http import JsonResponse
 
@@ -143,6 +143,14 @@ class OrgDescView(View):
         course_org = get_object_or_404(Org, pk=org_id)
         has_fav = has_faved(request, 2, org_id)
         return render(request, 'org/org-detail-desc.html', locals())
+
+
+# class OrgDescView(DetailView):
+#     """
+#     机构详情
+#     """
+#     model = Org
+#     template_name = 'org/org-detail-desc.html'
 
 
 class TeacherListView(View):

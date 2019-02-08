@@ -12,7 +12,7 @@
     <!-- 全部课程 -->
     {% for course in all_courses %}
     <div class="module1_5 box">
-      <a href="{% url 'course:course_detail' course.id %}"><img width="214" src="{{ MEDIA_URL }}{{ course.cover }}"/></a>
+      <a href="{% url 'course:course_detail' course.id %}"><img width="214" src="{{ course.cover.url }}"/></a>
       <div class="des">
         <a href=""><h2>{{ course.name }}</h2></a>
         <span class="fl">课时：<i class="key">{{ course.learn_times }}</i></span>
@@ -36,7 +36,7 @@
   <div class="diarys">
     <div class="module5 share company-diary-box" style="padding:10px 0;">
       <a href="{% url 'teacher_detail' teacher.id %}" class="left">
-        <img class="pic" src="{{ MEDIA_URL }}{{ teacher.avatar }}"/>
+        <img class="pic" src="{{ teacher.avatar.url }}"/>
         <p>昵称：{{ teacher.name }}</p>
       </a>
       <div class="right">

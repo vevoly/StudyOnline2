@@ -28,11 +28,11 @@
             <div class="personal">
               <dl class="user fr">
                 <dd>{{ request.user.nick_name | default_if_none:''}}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
-                <dt><img width="20" height="20" src="{{ MEDIA_URL }}{{ request.user.avatar }}"/></dt>
+                <dt><img width="20" height="20" src="{ request.user.avatar.url }}"/></dt>
               </dl>
               <div class="userdetail">
                 <dl>
-                  <dt><img width="80" height="80" src="{{ MEDIA_URL }}{{ request.user.avatar }}" /></dt>
+                  <dt><img width="80" height="80" src="{{ request.user.avatar.url }}" /></dt>
                   <dd>
                     <h2>{{ request.user.nick_name | default_if_none:''}}</h2>
                     <p>{{ request.user.username }}</p>
@@ -59,7 +59,7 @@
       <div class="middle companyheader">
         <div class="wp">
           {# org-detail-home.html 能用 course_org 这个变量 ，因为 org-detail-home 继承了 org-base.html，故 org-base 也能用 这个变量  #}
-          <img class="fl" style="width: 112px;height: 103px" src="{{ MEDIA_URL }}{{ course_org.logo}}"/>
+          <img class="fl" style="width: 112px;height: 103px" src="{{ course_org.logo.url}}"/>
           <div class="head fl">
             <h1>{{ course_org.name }}
               <img src="{% static 'images/authentication.png' %}"/>

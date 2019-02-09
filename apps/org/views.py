@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.views.generic import View, ListView, DetailView
-from django.db.models import Q
+from django.db.models import Q, F
 from django.http import JsonResponse
 
 from pure_pagination import Paginator, PageNotAnInteger
@@ -161,6 +161,8 @@ class TeacherListView(View):
     def get(request):
         all_teachers = Teacher.objects.all()
         sorted_teacher = all_teachers.order_by('-click_nums')[:5]
+        # 收藏次数大于点击次数的教师：
+        test_teachers = all_teachers.filter(fav_nums__gt=F('click_nums'))
         # 关键字
         keywords = request.GET.get('keywords', '')
         if keywords:

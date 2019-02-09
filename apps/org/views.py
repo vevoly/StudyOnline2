@@ -159,8 +159,7 @@ class TeacherListView(View):
     """
     @staticmethod
     def get(request):
-        # all_teachers = Teacher.objects.all()
-        all_teachers = get_list_or_404(Teacher)
+        all_teachers = Teacher.objects.all()
         sorted_teacher = all_teachers.order_by('-click_nums')[:5]
         # 关键字
         keywords = request.GET.get('keywords', '')

@@ -12,5 +12,5 @@ COURSE_UPLOAD = {
 
 
 
-print('%s (%s)' % ('vevoly', str(10)))
+# print('%s (%s)' % ('vevoly', str(10)))
 # print(COURSE_UPLOAD.get('DETAIL').get('FILE'))

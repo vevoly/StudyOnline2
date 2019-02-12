@@ -68,13 +68,13 @@
 
           <div class="mod-chapters">
             {#     章节信息       #}
-            {% for lesson in course.get_lessons %}
+            {% for lesson in course.lesson_set.all %}
               <div class="chapter chapter-active">
               <h3>
                 <strong><i class="state-expand"></i>{{ lesson.name }}</strong>
               </h3>
               <ul class="video">
-                {% for video in lesson.get_videos %}
+                {% for video in lesson.video_set.all %}
                 <li>
                   <a target="_blank" href='{% url 'course:video_play' video.id %}' class="J-media-item studyvideo">
                     {{ video.name }}&nbsp;（{{ video.learn_times }}）

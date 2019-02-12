@@ -39,7 +39,7 @@ class Org(models.Model):
     click_nums = models.IntegerField(default=0, verbose_name='点击量')
     fav_nums = models.IntegerField(default=0, verbose_name='收藏次数')
     stu_nums = models.IntegerField(default=0, verbose_name='学习人数')
-    course_nums = models.IntegerField(default=0, verbose_name='课程数量')
+    course_nums = models.IntegerField(default=0, verbose_name='课程数量') # 暂时没有用
     add_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -57,13 +57,6 @@ class Org(models.Model):
         :return:
         """
         return self.course_set.order_by('-stu_nums')[:3]
-
-    def get_teacher_nums(self):
-        """
-        获取讲师数量
-        :return:
-        """
-        return self.teacher_set.count()
 
 
 class Teacher(models.Model):

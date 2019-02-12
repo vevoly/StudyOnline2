@@ -59,20 +59,6 @@ class Course(models.Model):
     def __str__(self):
         return '%s %s' % (self.name, self.org.name)
 
-    def get_lesson_nums(self):
-        """
-        章节数
-        :return:
-        """
-        return self.lesson_set.count()
-
-    def get_lessons(self):
-        """
-        获取所有章节
-        :return:
-        """
-        return self.lesson_set.all()
-
     def get_learn_users(self):
         """
         获取学习用户
@@ -107,13 +93,6 @@ class Lesson(models.Model):
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.course.name)
-
-    def get_videos(self):
-        """
-        获取所有视频
-        :return:
-        """
-        return self.video_set.all()
 
 
 class Video(models.Model):

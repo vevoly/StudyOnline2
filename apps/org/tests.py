@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.db.models import F
+from django.db.models import F, Count
 
 from time import gmtime
 
@@ -24,19 +24,29 @@ from org.models import Org, CityDict
 
 class OrgTest(TestCase):
 
+    def setUp(self):
+        city = CityDict.objects.create(name='上海')
+        Org.objects.bulk_create(
+            [
+                Org(name='zanneti', click_nums=2, fav_nums=10, city=city),
+                Org(name='wangjiu', click_nums=10, fav_nums=0, city=city),
+            ]
+        )
+
     def test1(self):
         """
         收藏数大于点击数的讲师数量。
         :return:
         """
-        city = CityDict.objects.create(name='上海')
-        org1 = Org.objects.create(name='zanneti', click_nums=2, fav_nums=10, city=city)
-        Org.objects.create(name='wangjiu', click_nums=10, fav_nums=0, city=city)
-        expect_org = org1
+
+        expect_org = Org.objects.get(pk=1)
         expect_org_nums = 1
         actual_org_set = Org.objects.filter(fav_nums__gt=F('click_nums'))
         actual_org = actual_org_set[0]
         actual_org_nums = actual_org_set.count()
         self.assertEqual(expect_org_nums, actual_org_nums)
         self.assertEquals(expect_org, actual_org)
+
+    def test2(self):
+        pass
 

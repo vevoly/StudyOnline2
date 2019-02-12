@@ -77,13 +77,15 @@
                         </a>
                       </div>
                       <ul class="cont">
-                        <li class="first"><p class="pic9">课程数：<span>{{ org.course_nums }}</span></p>
-                          <p class="c7">学习人数：<span>{{ org.stu_nums }}</span></p></li>
+                        <li class="first">
+                            <p class="pic9">课程数：<span>{{ org.course_set.count }}</span></p>
+                            <p class="c7">学习人数：<span>{{ org.stu_nums }}</span></p>
+                            <p class="pic10">讲师人数：<span>{{ org.teacher_set.count }}</span></p>
+                        </li>
                         <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
                         <li class="pic10" style="padding-left:18px;">经典课程：
                             {% for course in org.get_classic_courses  %}
-{#                                {% url 'courses:course_detail' course.id %}#}
-                                <a href="">{{ course.name }}</a>
+                                <a href="{% url 'course:course_detail' course.id %}">{{ course.name }}</a>
                             {% endfor %}
                         </li>
                       </ul>

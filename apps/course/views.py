@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.db import transaction
 from django.db.models import Q
 from django.http import JsonResponse
 
@@ -118,6 +119,7 @@ class CourseCommentView(LoginRequiredMixin, View):
         ret['msg'] = '评论成功！'
         return JsonResponse(ret)
 
+
 class CourseVideoView(LoginRequiredMixin, View):
     """
     播放视频
@@ -146,6 +148,7 @@ def exist_learned_record(course, user):
         return False
 
 
+@transaction.atomic()
 def add_learned_record(course, user):
     """
     增加学习记录
@@ -176,7 +179,7 @@ def learned_other_courses(course, user, nums=5):
         # 找出学过该课程的学生id集合
         user_ids = [user_course.user_id for user_course in user_course_list]
         # 找出学过该课程学生还学习过其他课程
-        user_course_list = UserCourse.objects.filter(Q(user_id__in=user_ids), ~Q(course=course))
+        user_course_list = UserCourse.objects.filter(Q(user_id__in=user_ids), ~Q(course=course)).distinct()
         # 取出课程
         ret = [user_course.course for user_course in user_course_list][:nums]
     return ret

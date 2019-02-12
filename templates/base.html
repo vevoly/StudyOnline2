@@ -60,15 +60,13 @@
           <div class="searchbox fr">
             <div class="selectContainer fl">
                 <span class="selectOption" id="jsSelectOption" data-value="{{ search_type | default:'course' }}">
-                    {% ifequal search_type 'org' %}
+                    {% if search_type == 'org' %}
                         课程机构
+                    {% elif search_type == 'teacher'%}
+                        授课讲师
                     {% else %}
-                        {% ifequal search_type 'teacher' %}
-                            授课讲师
-                        {% else %}
-                            公开课
-                        {% endifequal %}
-                    {% endifequal %}
+                        公开课
+                    {% endif %}
                 </span>
               <ul class="selectMenu" id="jsSelectMenu">
                 <li data-value="course">公开课</li>

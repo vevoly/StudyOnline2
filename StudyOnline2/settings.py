@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'vfilters',    # 自定义过滤器
     'user.apps.UserConfig',
     'org.apps.OrgConfig',
     'course.apps.CourseConfig',

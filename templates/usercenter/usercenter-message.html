@@ -1,5 +1,6 @@
 {% extends 'usercenter/usercenter-base.html' %}
 {% load staticfiles %}
+{% load humanize %}
 {% block title %}
     我的消息
 {% endblock %}
@@ -33,7 +34,7 @@
                     {% for message in messages.object_list %}
                     <div class="messages">
                         <div class="fr">
-                            <div class="top"><span class="fl time">{{ message.add_time }}</span><span class="fr btn foldbtn"></span></div>
+                            <div class="top"><span class="fl time">{{ message.add_time|naturalday }}</span><span class="fr btn foldbtn"></span></div>
                             <p>
                                 {{ message.message }}
                             </p>

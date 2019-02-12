@@ -160,6 +160,7 @@ class TeacherListView(View):
     @staticmethod
     def get(request):
         all_teachers = Teacher.objects.all()
+        all_teacher_nums = all_teachers.count()
         sorted_teacher = all_teachers.order_by('-click_nums')[:5]
         # 收藏次数大于点击次数的教师：
         test_teachers = all_teachers.filter(fav_nums__gt=F('click_nums'))
